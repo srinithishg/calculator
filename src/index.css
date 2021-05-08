@@ -1,0 +1,20 @@
+.center {
+  text-align: center;
+}
+
+button:disabled {
+  width: 2%;
+  background-color: lightgray;
+  border-color: black;
+}
+
+button:enabled {
+  width: 2%;
+  background-color:lightgreen;
+  border-color: black;
+}
+
+.button_list {
+  font-size: 20px;
+  margin: 10px;
+}
