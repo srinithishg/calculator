@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 
 class Calculator extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      input1: "",
-      input2: "",
-      result: "",
-      operator: "",
-      regexp: /^[0-9\b]+$/,
-    };
-  }
+  state = {
+    input1: "",
+    input2: "",
+    result: "",
+    operator: "",
+    regexp: /^[0-9\b]+$/,
+  };
 
   handleInput1 = (e) => {
     let input = e.target.value;
@@ -74,7 +71,7 @@ class Calculator extends Component {
         break;
       default:
         this.setState({
-          result: "Invalid operator",
+          result: "",
         });
     }
   };
@@ -109,7 +106,7 @@ class Calculator extends Component {
         <br></br>
         <button
           name="+"
-          className="button_list"
+          className="button"
           onClick={this.calculate}
           disabled={input1 === "" || input2 === ""}
         >
@@ -117,7 +114,7 @@ class Calculator extends Component {
         </button>
         <button
           name="-"
-          className="button_list"
+          className="button"
           onClick={this.calculate}
           disabled={input1 === "" || input2 === ""}
         >
@@ -125,7 +122,7 @@ class Calculator extends Component {
         </button>
         <button
           name="*"
-          className="button_list"
+          className="button"
           onClick={this.calculate}
           disabled={input1 === "" || input2 === ""}
         >
@@ -133,14 +130,20 @@ class Calculator extends Component {
         </button>
         <button
           name="/"
-          className="button_list"
+          className="button"
           onClick={this.calculate}
           disabled={input1 === "" || input2 === ""}
         >
           /
         </button>
         <br></br>
-        Result : <input type="text" value={result} onChange={this.calculate} />
+        Result :{" "}
+        <input
+          type="text"
+          value={result}
+          disabled="disabled"
+          onChange={this.calculate}
+        />
       </div>
     );
   }

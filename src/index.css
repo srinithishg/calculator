@@ -3,13 +3,11 @@
 }
 
 button:disabled {
-  width: 2%;
   background-color: lightgray;
   border-color: black;
 }
 
 button:enabled {
-  width: 2%;
   background-color:lightgreen;
   border-color: black;
 }
@@ -19,11 +17,10 @@ button:hover {
   border-color: black;
 }
 
-.Button {
-  display: inline;
-}
-
-.button_list {
-  font-size: 20px;
-  margin: 10px;
+.button {
+  width: 2rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  font-weight: bolder;
+  margin: 1rem;
 }
