@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css'
-import Calculator from './components/calculator';
+import Calculator from './components/Calculator';
 
 
 ReactDOM.render(<Calculator/>,document.getElementById('root'));

@@ -1,35 +1,85 @@
 import React, { Component } from "react";
-import button from "./button";
 
 class Calculator extends Component {
-  state = {
-    input1: null,
-    input2: null,
-    result: "",
-    regexp: /^[0-9\b]+$/,
-    backgroundColor: true,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      input1: "",
+      input2: "",
+      result: "",
+      regexp: /^[0-9\b]+$/,
+    };
+    this.add = this.add.bind(this);
+  }
 
   handleInput1 = (e) => {
-    let input1 = e.target.value;
-
-    if (input1 === "" || this.state.regexp.test(input1)) {
-      this.setState({ [e.target.name]: input1 });
+    let input = e.target.value;
+    if (input === "" || this.state.regexp.test(input)) {
+      this.setState({ [e.target.name]: input });
     }
   };
 
   handleInput2 = (e) => {
-    let input2 = e.target.value;
-    if (input2 === "" || this.state.regexp.test(input2)) {
-      this.setState({ [e.target.name]: input2 });
+    let input = e.target.value;
+    if (input === "" || this.state.regexp.test(input)) {
+      this.setState({ [e.target.name]: input });
     }
-    if (this.props.input1 !== null && this.props.input2 !== null) 
-    this.setState({
-      backgroundColor: false,
-  })
-}
+  };
+
+  add = (e) => {
+    this.setState({ [e.target.name]: e.target.value }, function () {
+      this.setState({
+        result:
+          this.state.input1 +
+          " + " +
+          this.state.input2 +
+          " = " +
+          (Number(this.state.input1) + Number(this.state.input2)),
+      });
+    });
+  };
+
+  subtract = (e) => {
+    this.setState({ [e.target.name]: e.target.value }, function () {
+      this.setState({
+        result:
+          this.state.input1 +
+          " - " +
+          this.state.input2 +
+          " = " +
+          (Number(this.state.input1) - Number(this.state.input2)),
+      });
+    });
+  };
+
+  multiply = (e) => {
+    this.setState({ [e.target.name]: e.target.value }, function () {
+      this.setState({
+        result:
+          this.state.input1 +
+          " * " +
+          this.state.input2 +
+          " = " +
+          Number(this.state.input1) * Number(this.state.input2),
+      });
+    });
+  };
+
+  divide = (e) => {
+    this.setState({ [e.target.name]: e.target.value }, function () {
+      this.setState({
+        result:
+          this.state.input1 +
+          " / " +
+          this.state.input2 +
+          " = " +
+          Number(this.state.input1) / Number(this.state.input2),
+      });
+    });
+  };
 
   render() {
+    let { input1, input2, result } = this.state;
     return (
       <div className="center">
         <h1>Calculator</h1>
@@ -38,7 +88,6 @@ class Calculator extends Component {
         <input
           type="text"
           name="input1"
-          id="input1"
           value={this.state.input1}
           onChange={this.handleInput1}
           maxLength={9}
@@ -50,7 +99,6 @@ class Calculator extends Component {
         <input
           type="text"
           name="input2"
-          id="input2"
           value={this.state.input2}
           onChange={this.handleInput2}
           maxLength={9}
@@ -59,39 +107,39 @@ class Calculator extends Component {
         <br></br>
         <br></br>
         <button
-          id="add"
-          class="button_list"
-          disabled={this.state.backgroundColor}
-          value="+"
+          name="+"
+          className="button_list"
+          onClick={this.add}
+          disabled={input1 === "" || input2 === ""}
         >
           +
         </button>
         <button
-          id="subtract"
-          class="button_list"
-          disabled={this.state.backgroundColor}
-          value="-"
+          name="-"
+          className="button_list"
+          onClick={this.subtract}
+          disabled={input1 === "" || input2 === ""}
         >
           -
         </button>
         <button
-          id="multiply"
-          class="button_list"
-          disabled={this.state.backgroundColor}
-          value="*"
+          name="*"
+          className="button_list"
+          onClick={this.multiply}
+          disabled={input1 === "" || input2 === ""}
         >
           *
         </button>
         <button
           id="divide"
-          class="button_list"
-          disabled={this.state.backgroundColor}
-          value="/"
+          className="button_list"
+          onClick={this.divide}
+          disabled={input1 === "" || input2 === ""}
         >
           /
         </button>
         <br></br>
-        Result : <input id="result" onChange={this.handleResult} />
+        Result : <input type="text" value={result} />
       </div>
     );
   }

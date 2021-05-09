@@ -14,6 +14,15 @@ button:enabled {
   border-color: black;
 }
 
+button:hover {
+  background-color:green;
+  border-color: black;
+}
+
+.Button {
+  display: inline;
+}
+
 .button_list {
   font-size: 20px;
   margin: 10px;
