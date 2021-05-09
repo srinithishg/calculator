@@ -7,9 +7,9 @@ class Calculator extends Component {
       input1: "",
       input2: "",
       result: "",
+      operator: "",
       regexp: /^[0-9\b]+$/,
     };
-    this.add = this.add.bind(this);
   }
 
   handleInput1 = (e) => {
@@ -17,6 +17,7 @@ class Calculator extends Component {
     if (input === "" || this.state.regexp.test(input)) {
       this.setState({ [e.target.name]: input });
     }
+    this.setState({ result: this.state.result });
   };
 
   handleInput2 = (e) => {
@@ -24,58 +25,58 @@ class Calculator extends Component {
     if (input === "" || this.state.regexp.test(input)) {
       this.setState({ [e.target.name]: input });
     }
+    if (this.state.operator !== "") this.calculate();
   };
 
-  add = (e) => {
-    this.setState({ [e.target.name]: e.target.value }, function () {
-      this.setState({
-        result:
-          this.state.input1 +
-          " + " +
-          this.state.input2 +
-          " = " +
-          (Number(this.state.input1) + Number(this.state.input2)),
-      });
-    });
-  };
+  calculate = (e) => {
+    let operator = e.target.name;
 
-  subtract = (e) => {
-    this.setState({ [e.target.name]: e.target.value }, function () {
-      this.setState({
-        result:
-          this.state.input1 +
-          " - " +
-          this.state.input2 +
-          " = " +
-          (Number(this.state.input1) - Number(this.state.input2)),
-      });
-    });
-  };
-
-  multiply = (e) => {
-    this.setState({ [e.target.name]: e.target.value }, function () {
-      this.setState({
-        result:
-          this.state.input1 +
-          " * " +
-          this.state.input2 +
-          " = " +
-          Number(this.state.input1) * Number(this.state.input2),
-      });
-    });
-  };
-
-  divide = (e) => {
-    this.setState({ [e.target.name]: e.target.value }, function () {
-      this.setState({
-        result:
-          this.state.input1 +
-          " / " +
-          this.state.input2 +
-          " = " +
-          Number(this.state.input1) / Number(this.state.input2),
-      });
-    });
+    switch (operator) {
+      case "+":
+        this.setState({
+          result:
+            this.state.input1 +
+            " + " +
+            this.state.input2 +
+            " = " +
+            (Number(this.state.input1) + Number(this.state.input2)),
+        });
+        break;
+      case "-":
+        this.setState({
+          result:
+            this.state.input1 +
+            " - " +
+            this.state.input2 +
+            " = " +
+            (Number(this.state.input1) - Number(this.state.input2)),
+        });
+        break;
+      case "*":
+        this.setState({
+          result:
+            this.state.input1 +
+            " * " +
+            this.state.input2 +
+            " = " +
+            Number(this.state.input1) * Number(this.state.input2),
+        });
+        break;
+      case "/":
+        this.setState({
+          result:
+            this.state.input1 +
+            " / " +
+            this.state.input2 +
+            " = " +
+            (Number(this.state.input1) / Number(this.state.input2)).toFixed(2),
+        });
+        break;
+      default:
+        this.setState({
+          result: "Invalid operator",
+        });
+    }
   };
 
   render() {
@@ -109,7 +110,7 @@ class Calculator extends Component {
         <button
           name="+"
           className="button_list"
-          onClick={this.add}
+          onClick={this.calculate}
           disabled={input1 === "" || input2 === ""}
         >
           +
@@ -117,7 +118,7 @@ class Calculator extends Component {
         <button
           name="-"
           className="button_list"
-          onClick={this.subtract}
+          onClick={this.calculate}
           disabled={input1 === "" || input2 === ""}
         >
           -
@@ -125,21 +126,21 @@ class Calculator extends Component {
         <button
           name="*"
           className="button_list"
-          onClick={this.multiply}
+          onClick={this.calculate}
           disabled={input1 === "" || input2 === ""}
         >
           *
         </button>
         <button
-          id="divide"
+          name="/"
           className="button_list"
-          onClick={this.divide}
+          onClick={this.calculate}
           disabled={input1 === "" || input2 === ""}
         >
           /
         </button>
         <br></br>
-        Result : <input type="text" value={result} />
+        Result : <input type="text" value={result} onChange={this.calculate} />
       </div>
     );
   }
